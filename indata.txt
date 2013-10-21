@@ -1,0 +1,14 @@
+# sample MALBAC.SC1
+# fastq /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Malbac-cell1_S19_L001_R1_001.fastq.gz /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Malbac-cell1_S19_L001_R2_001.fastq.gz
+# sample MALBAC.SC2
+# fastq /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Malbac-cell2_S20_L001_R1_001.fastq.gz /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Malbac-cell2_S20_L001_R2_001.fastq.gz
+# sample Qiagen.SC1
+# fastq /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Qiagen-cell1_S14_L001_R1_001.fastq.gz /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Qiagen-cell1_S14_L001_R2_001.fastq.gz
+# sample Qiagen.SC2
+# fastq /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Qiagen-cell2_S15_L001_R1_001.fastq.gz /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Qiagen-cell2_S15_L001_R2_001.fastq.gz
+# sample Rubicon.SC1
+# fastq /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Rubicon-cell1_S16_L001_R1_001.fastq.gz /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Rubicon-cell1_S16_L001_R2_001.fastq.gz
+# sample Rubicon.SC2
+# fastq /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Rubicon-cell2_S18_L001_R1_001.fastq.gz /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//Rubicon-cell2_S18_L001_R1_001.fastq.gz
+# sample UnAmplified
+# fastq /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//gDNA_S22_L001_R1_001.fastq.gz /bubo/proj/b2011011/WGAcomparison/data/131007_M00275_0140_000000000-A6AYF//gDNA_S22_L001_R2_001.fastq.gz
