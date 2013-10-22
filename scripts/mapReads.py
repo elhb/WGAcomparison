@@ -33,18 +33,19 @@ for sample in indatDist:
             '#! /bin/bash -l\n'+
             '#SBATCH -A b2011011\n'+
             '#SBATCH -n 8 -p node\n'+
-            '#SBATCH -t 2:00:00\n'+
+            '#SBATCH -t 3:00:00\n'+
             '#SBATCH -J mapping.'+sample+'.'+str(tmpCounter0)+'\n'+
-            '#SBATCH -e tasks/mapping/'+sample+'/sbatch/stderr.'+str(tmpCounter0)+'.txt\n'+
-            '#SBATCH -o tasks/mapping/'+sample+'/sbatch/stdout.'+str(tmpCounter0)+'.txt\n'+
+            '#SBATCH -e /proj/b2011011/WGAcomparison/tasks/mapping/'+sample+'/sbatch/stderr.'+str(tmpCounter0)+'.txt\n'+
+            '#SBATCH -o /proj/b2011011/WGAcomparison/tasks/mapping/'+sample+'/sbatch/stdout.'+str(tmpCounter0)+'.txt\n'+
             '#SBATCH --mail-type=All\n'+
             '#SBATCH --mail-user=erik.borgstrom@scilifelab.se\n'+
-            'bowtie2 -x references/hg19/concat -1 '+r1File+' -2 '+r2File+' -S tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.sam -p 8\n'+
+            'cd /proj/b2011011/WGAcomparison/\n'+
+            'bowtie2 -x references/hg19/concat -1 '+r1File+' -2 '+r2File+' -S tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.sam -p 8 --very-sensitive-local\n'+
             'picard=/bubo/proj/b2011168/private/bin/picard-tools-1.63\n'+
-            'java -Xmx2g -jar $picard/SamFormatConverter.jar MAX_RECORDS_IN_RAM=2500000 INPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.sam OUTPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.bam\n'+
-            'java -Xmx2g -jar $picard/SortSam.jar MAX_RECORDS_IN_RAM=2500000 SORT_ORDER=coordinate INPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.bam OUTPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.sorted.bam CREATE_INDEX=true\n'+
-            'java -Xmx2g -jar $picard/MarkDuplicates.jar MAX_RECORDS_IN_RAM=2500000 VALIDATION_STRINGENCY=LENIENT INPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.sorted.bam OUTPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.marked.bam METRICS_FILE=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.MarkDupsMetrix CREATE_INDEX=true\n'+
-            'java -Xmx2g -jar $picard/AddOrReplaceReadGroups.jar MAX_RECORDS_IN_RAM=2500000 INPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.marked.bam OUTPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.rgInfoFixed.bam CREATE_INDEX=true RGID='+sample+' RGLB='+sample+' RGPL=illumina RGSM='+sample+' RGCN="SciLifeLab" RGPU="barcode" \n'
+            'java -Xmx24g -jar $picard/SamFormatConverter.jar MAX_RECORDS_IN_RAM=2500000 INPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.sam OUTPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.bam\n'+
+            'java -Xmx24g -jar $picard/SortSam.jar MAX_RECORDS_IN_RAM=2500000 SORT_ORDER=coordinate INPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.bam OUTPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.sorted.bam CREATE_INDEX=true\n'+
+            'java -Xmx24g -jar $picard/MarkDuplicates.jar MAX_RECORDS_IN_RAM=2500000 VALIDATION_STRINGENCY=LENIENT INPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.sorted.bam OUTPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.marked.bam METRICS_FILE=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.MarkDupsMetrix CREATE_INDEX=true\n'+
+            'java -Xmx24g -jar $picard/AddOrReplaceReadGroups.jar MAX_RECORDS_IN_RAM=2500000 INPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.marked.bam OUTPUT=tasks/mapping/'+sample+'/'+str(tmpCounter0)+'.rgInfoFixed.bam CREATE_INDEX=true RGID='+sample+' RGLB='+sample+' RGPL=illumina RGSM='+sample+' RGCN="SciLifeLab" RGPU="barcode" \n'
         )
         sbatchInfo[sample]['mapping']['files'][tmpCounter0].close()
 
@@ -53,6 +54,7 @@ import subprocess
 for sample in sbatchInfo:
     for tmpCounter0, sbatchFile in sbatchInfo[sample]['mapping']['files'].iteritems():
         args = ['sbatch',sbatchFile.name]
+        sbatchInfo[sample]['mapping']['files'][tmpCounter0] = sbatchFile.name
         sbatch = subprocess.Popen( args, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
         sbatch_out, sbatch_err = sbatch.communicate()
         if sbatch.returncode != 0:
@@ -65,6 +67,4 @@ for sample in sbatchInfo:
 sbatchInfoFile = open('sbatchInfoDist.txt','w')
 sbatchInfoFile.write(str(sbatchInfo))
 sbatchInfoFile.close()
-
-#JUNK:      'java -Xmx2g -jar $picard/CalculateHsMetrics.jar BAIT_INTERVALS=?.bed TARGET_INTERVALS=?.bed INPUT= OUTPUT=.hs_metrics.summary.txt PER_TARGET_COVERAGE=..txt REFERENCE_SEQUENCE='
 
