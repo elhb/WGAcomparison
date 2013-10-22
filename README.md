@@ -16,10 +16,10 @@ First you need to create a indata file with the following format:
 To map the data run:  
   
     python scripts/mapReads.py indata.txt
-### Merging mapped bamfiles
-Not implemented.
-### Do some QC
-Not implemented.
+### Merging mapped bamfiles and do some QC
+To merge the bamfiles and calculate HS metrics run:  
+  
+    python scripts/mergeAndQc.py indata.txt
 ### Call variants
 Not implemented.
 ###Create summary
